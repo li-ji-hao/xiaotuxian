@@ -37,9 +37,10 @@ div{
 .app-topnav{
   background-color: rgb(26, 24, 24);
   color: #fff;
-  height: 50px;
+  height: 78px;
   width: auto;
   .container{
+    padding-top: 10px;
     margin: 0px;
     width: auto;
     height: 50px;
