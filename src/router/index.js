@@ -6,6 +6,9 @@ import Login from '@/views/login/index.vue'
 
 import Home from '@/views/Home/index.vue'
 import Category from '@/views/Category/index.vue'
+import SubCategory from '@/views/subCategory/index.vue'
+
+import Detail from '@/views/Detail/index.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   //path和componment对应关系的位置
@@ -21,6 +24,14 @@ const router = createRouter({
         {
           path: 'category/:id',
           component: Category
+        },
+        {
+          path:'category/sub/:id',
+          component:SubCategory
+        },
+        {
+          path:'detail/:id',
+          component:Detail
         }
       ]
     },
@@ -28,7 +39,13 @@ const router = createRouter({
       path: '/login',
       component: Login,
     }
-  ]
+  ],
+  //路由行为定制
+  scrollBehavior(){
+    return{
+      top:0
+    }
+  }
 })
 
 export default router
