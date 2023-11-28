@@ -7,8 +7,10 @@ import Login from '@/views/login/index.vue'
 import Home from '@/views/Home/index.vue'
 import Category from '@/views/Category/index.vue'
 import SubCategory from '@/views/subCategory/index.vue'
-
+import CartList from '@/views/CartList/index.vue'
+import Checkout from '@/views/Checkout/index.vue'
 import Detail from '@/views/Detail/index.vue'
+import Pay from '@/views/Pay/index.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   //path和componment对应关系的位置
@@ -32,6 +34,18 @@ const router = createRouter({
         {
           path:'detail/:id',
           component:Detail
+        },
+        {
+          path:'cartlist',
+          component:CartList
+        },
+        {
+          path:'checkout',
+          component:Checkout
+        },
+        {
+          path:'pay',
+          component:Pay
         }
       ]
     },

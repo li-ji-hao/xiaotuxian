@@ -6,7 +6,7 @@ import { useCategory } from './components/useCategory';
 const { bannerList} = useBanner()
 const { categoryDate } = useCategory()
 
-console.log(categoryDate.name);
+console.log(categoryDate);
 
 
 </script>

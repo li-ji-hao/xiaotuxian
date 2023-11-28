@@ -12,7 +12,7 @@ const res = await getHotGoodsAPI({
   type:props.hotType,
   limit:route.params.limit
  })
- console.log(res);
+//  console.log(res);
  hotList.value=res.data.result
 }
 

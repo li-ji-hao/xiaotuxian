@@ -1,25 +1,58 @@
 <script setup>
-import { getDetail} from '@/apis/Detail'
-import { ref,onMounted } from 'vue'
+import { getDetail } from '@/apis/Detail'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import DetailHotVue from './components/DetailHot.vue';
-import ImageView from '@/composables/ImageView/index.vue'
+import { ElMessage } from 'element-plus'
 
-const goods =ref({})
-const route =useRoute()
+import { useCartStore } from '@/stores/cartStore'
+const cartStore = useCartStore()
+
+const goods = ref({})
+const route = useRoute()
 // const dl =ref({})
-const getGoods= async ()=>{
- const res = await getDetail(route.params.id)
- goods.value =res.data.result
-//  console.log(goods.value.categories);
-console.log(res.data.result.categories[1].id);
-//  dl.value =res.data.result.categories
+const getGoods = async () => {
+  const res = await getDetail(route.params.id)
+  goods.value = res.data.result
+  //  console.log(goods.value.categories);
+  console.log(res.data.result.categories[1].id);
+  //  dl.value =res.data.result.categories
 }
 
-onMounted(()=>{
+onMounted(() => {
   getGoods()
 })
 
+//sku规格被操作时
+let skuObj = {}
+const skuChange = (sku) => {
+  console.log(sku);
+  skuObj = sku
+}
+
+const count = ref(1)
+const countChange = () => {
+  console.log(count);
+}
+
+const addCart = () => {
+  if(skuObj.skuId){
+    //规格已经选择
+    cartStore.addCart({
+      id:goods.value.id,
+      name:goods.value.name,
+      price:goods.value.price,
+      picture:goods.value.mainPictures[0],
+      count:count.value,
+      skuId:skuObj.skuId,
+      attrsText:skuObj.specsText,
+      selected:true
+    })
+  } else {
+    //规格没有选择
+    ElMessage.warning('请选择规格')
+  }
+}
 </script>
 
 <template>
@@ -42,7 +75,7 @@ onMounted(()=>{
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <ImageView/>
+              <ImageView :image-list="goods.mainPictures" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -91,12 +124,12 @@ onMounted(()=>{
                 </dl>
               </div>
               <!-- sku组件 -->
-
+              <Sku :goods="goods" @change="skuChange" />
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count" :min="0" @change="countChange" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="addCart">
                   加入购物车
                 </el-button>
               </div>
@@ -125,8 +158,8 @@ onMounted(()=>{
             </div>
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
-              <DetailHotVue :hot-type="1"/>
-              <DetailHotVue :hot-type="2"/>
+              <DetailHotVue :hot-type="1" />
+              <DetailHotVue :hot-type="2" />
             </div>
           </div>
         </div>
