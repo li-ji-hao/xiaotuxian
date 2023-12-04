@@ -13,6 +13,15 @@ export const loginAPI = ({ account,password}) => {
   })
 }
 
+export const getLikeListAPI = ({ limit = 4 }) => {
+  return httpInstance({
+    url:'/goods/relevant',
+    params: {
+      limit 
+    }
+  })
+}
+
 // import { my } from '@/utils/http'
 
 // export const loginAPI = ({ username,password}) => {

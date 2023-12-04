@@ -11,6 +11,10 @@ import CartList from '@/views/CartList/index.vue'
 import Checkout from '@/views/Checkout/index.vue'
 import Detail from '@/views/Detail/index.vue'
 import Pay from '@/views/Pay/index.vue'
+import Payback from '@/views/Pay/PayBack.vue'
+import Member from '@/views/Member/index.vue'
+import UserInfo from '@/views/Member/UserInfo.vue'
+import UserOrder from '@/views/Member/UserOrder.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   //path和componment对应关系的位置
@@ -46,6 +50,24 @@ const router = createRouter({
         {
           path:'pay',
           component:Pay
+        },
+        {
+          path:'paycallback',
+          component:Payback
+        },
+        {
+          path:'member',
+          component:Member,
+          children:[
+            {
+              path:'',
+              component:UserInfo
+            },
+            {
+              path:'order',
+              component:UserOrder
+            }
+          ]
         }
       ]
     },

@@ -22,7 +22,7 @@ const mysever =axios.create({
 httpInstance.interceptors.request.use(function (config) {
   //从pinia获取token数据
   const userStore = useUserStore()
-  const token = userStore.useInfo.token
+  const token = userStore.userInfo.token
   if(token){
     config.headers.Authorization = `Bearer ${token}`
   }
